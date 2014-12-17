@@ -30,7 +30,7 @@ public class WeatherFrame extends JFrame {
 		BoxLayout layout = new BoxLayout(container, BoxLayout.Y_AXIS);
 
 		container.setLayout(layout);
-		
+		WeatherDownloadThread thread=new WeatherDownloadThread();
 		JLabel name = new JLabel("Weather for " + city);
 		name.setOpaque(true);
 		container.add(name);
