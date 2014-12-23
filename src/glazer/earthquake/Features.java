@@ -7,9 +7,8 @@ public class Features {
 		return properties;
 	}
 
-	public void setPr(Properties properites) {
-		this.properties =properties;
+	public void setPr(Properties properties) {
+		this.properties = properties;
 	}
-
 
 }

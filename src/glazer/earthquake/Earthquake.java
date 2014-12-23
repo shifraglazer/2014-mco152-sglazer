@@ -1,7 +1,5 @@
 package glazer.earthquake;
 
-
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -11,28 +9,23 @@ import java.net.URLConnection;
 import com.google.gson.Gson;
 
 public class Earthquake {
-	//private String metadata;
-	private Features[] features;
-/* String getMetadata() {
-		return metadata;
-	}
 
-	public void setMetadata(String metadata) {
-		this.metadata = metadata;
-	}
-*/
+	private Features[] features;
+
 	public Features[] getFeatures() {
 		return features;
 	}
+
 	public void setFeatures(Features[] features) {
 		this.features = features;
 	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		URL url;
 		try {
 			url = new URL(
-					"http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_day.geojson");
+					"http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson");
 			URLConnection connection = url.openConnection();
 			InputStream in = connection.getInputStream();
 			byte b[] = new byte[4096];
@@ -44,16 +37,12 @@ public class Earthquake {
 
 			}
 			Gson gson = new Gson();
-			String jsons=json.toString();
-			Earthquake quake=gson.fromJson(jsons,Earthquake.class);
-			//System.out.println(quake.getMetadata());
-			Features [] f=quake.getFeatures();
-			for(int i=0;i<f.length;i++){
-				System.out.println(f[i].getProperties().getPlace());
-				System.out.println(f[i].getProperties().getMag());
-		
-			}
-		
+			String jsons = json.toString();
+			Earthquake quake = gson.fromJson(jsons, Earthquake.class);
+
+			EarthquakeGUI gui = new EarthquakeGUI(quake);
+			gui.setVisible(true);
+
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -61,9 +50,7 @@ public class Earthquake {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
-	}
-	
 
+	}
 
 }
