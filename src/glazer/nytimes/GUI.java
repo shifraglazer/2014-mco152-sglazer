@@ -2,8 +2,6 @@ package glazer.nytimes;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -15,7 +13,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -38,24 +35,26 @@ public class GUI extends JFrame {
 		Container container = getContentPane();
 		JPanel panel = new JPanel();
 		container.setLayout(new BorderLayout());
-		panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
-		 docs = times.getResponse().getDocs();
-		JPanel[] documents = new JPanel[docs.length+1];
-		
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		docs = times.getResponse().getDocs();
+		JPanel[] documents = new JPanel[docs.length + 1];
+
 		for (int i = 0; i < docs.length; i++) {
-			documents[i]=new JPanel();
-			documents[i].setLayout(new BoxLayout(documents[i],BoxLayout.Y_AXIS));
-			JLabel headline=new JLabel();
-			
-			headline.setText( "Headline: " + docs[i].getHeadline().getMain());
+			documents[i] = new JPanel();
+			documents[i]
+					.setLayout(new BoxLayout(documents[i], BoxLayout.Y_AXIS));
+			JLabel headline = new JLabel();
+
+			headline.setText("Headline: " + docs[i].getHeadline().getMain());
 			headline.setVisible(true);
 			documents[i].add(headline);
-			JLabel leadParagraph= new JLabel();
-			leadParagraph.setText(" Lead paragraph: " + docs[i].getLead_paragraph());
+			JLabel leadParagraph = new JLabel();
+			leadParagraph.setText(" Lead paragraph: "
+					+ docs[i].getLead_paragraph());
 			JButton view = new JButton();
 			view.setText("View Article");
-			final int num=i;
-			ActionListener viewArticle=new ActionListener(){
+			final int num = i;
+			ActionListener viewArticle = new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -66,22 +65,22 @@ public class GUI extends JFrame {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-					
+
 				}
-				
+
 			};
 			view.addActionListener(viewArticle);
-			
+
 			documents[i].add(leadParagraph);
 			documents[i].add(view);
 			documents[i].setVisible(true);
 			panel.add(documents[i]);
-					
+
 		}
-		
-		//JList<JPanel> list = new JList<>(documents);
-		//documents[docs.length].add(list);
-		
+
+		// JList<JPanel> list = new JList<>(documents);
+		// documents[docs.length].add(list);
+
 		panel.setVisible(true);
 		ActionListener view = new ActionListener() {
 
@@ -133,8 +132,8 @@ public class GUI extends JFrame {
 		b.setVisible(true);
 
 		container.add(b, BorderLayout.SOUTH);
-	
-		//this.setContentPane(container);
+
+		// this.setContentPane(container);
 		container.setVisible(true);
 	}
 

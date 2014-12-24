@@ -3,7 +3,6 @@ package glazer.weather;
 import java.awt.Container;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -25,6 +24,8 @@ public class WeatherFrame extends JFrame {
 	private JLabel des;
 	private JLabel picture;
 
+	// private JList<JPanel> list;
+
 	public WeatherFrame() {
 		this.setSize(800, 600);
 		this.setTitle("Current Weather");
@@ -40,12 +41,13 @@ public class WeatherFrame extends JFrame {
 		temperature = new JLabel();
 		des = new JLabel();
 		picture = new JLabel();
-		container.add(picture);
 		container.add(label);
-		container.add(tempmin);
-		container.add(tempmax);
 		container.add(temperature);
+		container.add(tempmax);
+		container.add(tempmin);
+		// container.add(list);
 		container.add(des);
+		container.add(picture);
 		WeatherDownloadThread thread = new WeatherDownloadThread(this);
 		thread.start();
 
@@ -53,33 +55,40 @@ public class WeatherFrame extends JFrame {
 
 	public void displayWeather(WeatherNow now) {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Weather description: ");
+	
 		Weather[] descr = now.getWeather();
+		// descriptions = new JPanel[descr.length];
 		for (int i = 0; i < descr.length; i++) {
-			builder.append(descr[i].getDescription() + " \n");
+			/*
+			 * descriptions[i]=new JPanel();
+			 * des.setText(descr[i].getDescription()); descriptions[i].add(des);
+			 * String url = descr[i].getIcon(); PicDownloadThread pic = new
+			 * PicDownloadThread(url, picture); descriptions[i].add(picture);
+			 * list.add(descriptions[i]);
+			 */
+			builder.append(descr[i].getDescription());
+			if (i < descr.length - 1) {
+				builder.append(", ");
+			}
 		}
+		// list.setVisible(true);
 		des.setText(builder.toString());
 		des.setOpaque(true);
-		URL pic;
+		String pic;
 		String url = "http://openweathermap.org/img/w/";
 		String pictureurl = descr[0].getIcon();
-		try {
-			pic = new URL(url + pictureurl + ".png");
+		pic = url;
+		pic += pictureurl;
+		pic += ".png";
 
-			PicDownloadThread picThread = new PicDownloadThread(pic, picture);
-			picThread.start();
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		label.setText("Weather for " + now.getName());
-		label.setOpaque(true);
-		temperature.setText("Temperature now is: " + now.getMain().getTemp());
-		temperature.setOpaque(true);
-		tempmin.setText("Temperature min: " + now.getMain().getTempMin());
-		tempmin.setOpaque(true);
-		tempmax.setText("Temperature max: " + now.getMain().getTempMax());
-		tempmax.setOpaque(true);
+		PicDownloadThread picThread = new PicDownloadThread(pic, picture);
+		picThread.start();
+		label.setText(now.getName());
+		label.setFont(label.getFont().deriveFont(30f));
+		temperature.setText(now.getMain().getTemp() + " F");
+		temperature.setFont(temperature.getFont().deriveFont(50f));
+		tempmin.setText("L: " + now.getMain().getTempMin() + " F");
+		tempmax.setText("H: " + now.getMain().getTempMax() + " F");
 
 	}
 
