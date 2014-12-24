@@ -3,6 +3,7 @@ package glazer.nytimes;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -10,8 +11,10 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -24,26 +27,62 @@ public class GUI extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private int pagenum;
+	private Docs[] docs;
 
 	public GUI(NYTimes times) {
 		this.pagenum = 0;
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		this.setSize(800, 400);
+		this.setSize(800, 800);
 		this.setTitle("Last 10 headlines and lead_paragraphs in NY Times");
 		Container container = getContentPane();
 		JPanel panel = new JPanel();
 		container.setLayout(new BorderLayout());
-
-		Docs[] docs = times.getResponse().getDocs();
-		String[] documents = new String[docs.length];
+		panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
+		 docs = times.getResponse().getDocs();
+		JPanel[] documents = new JPanel[docs.length+1];
+		
 		for (int i = 0; i < docs.length; i++) {
-			documents[i] = "Headline: " + docs[i].getHeadline().getMain()
-					+ " Lead paragraph: " + docs[i].getLead_paragraph();
+			documents[i]=new JPanel();
+			documents[i].setLayout(new BoxLayout(documents[i],BoxLayout.Y_AXIS));
+			JLabel headline=new JLabel();
+			
+			headline.setText( "Headline: " + docs[i].getHeadline().getMain());
+			headline.setVisible(true);
+			documents[i].add(headline);
+			JLabel leadParagraph= new JLabel();
+			leadParagraph.setText(" Lead paragraph: " + docs[i].getLead_paragraph());
+			JButton view = new JButton();
+			view.setText("View Article");
+			final int num=i;
+			ActionListener viewArticle=new ActionListener(){
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					try {
+						java.awt.Desktop.getDesktop().browse(
+								java.net.URI.create(docs[num].getWeb_url()));
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+				}
+				
+			};
+			view.addActionListener(viewArticle);
+			
+			documents[i].add(leadParagraph);
+			documents[i].add(view);
+			documents[i].setVisible(true);
+			panel.add(documents[i]);
+					
 		}
-		JList<String> list = new JList<String>(documents);
-		panel.add(list);
-		list.setVisible(true);
+		
+		//JList<JPanel> list = new JList<>(documents);
+		//documents[docs.length].add(list);
+		
+		panel.setVisible(true);
 		ActionListener view = new ActionListener() {
 
 			@Override
@@ -87,17 +126,7 @@ public class GUI extends JFrame {
 		button.setText("View next 10 articles");
 		button.addActionListener(view);
 		JScrollPane scrollPane = new JScrollPane(panel);
-		scrollPane
-				.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollPane
-				.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setBounds(2, 2, 800, 300);
-
-		JPanel contentPane = new JPanel(null);
-		contentPane.setPreferredSize(new Dimension(800, 400));
-		contentPane.add(scrollPane);
-
-		container.add(contentPane, BorderLayout.NORTH);
+		container.add(scrollPane, BorderLayout.NORTH);
 		JPanel b = new JPanel();
 		button.setVisible(true);
 		b.add(button);
