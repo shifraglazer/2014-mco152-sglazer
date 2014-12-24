@@ -99,13 +99,14 @@ public class GUI extends JFrame {
 
 		container.add(contentPane, BorderLayout.NORTH);
 		JPanel b = new JPanel();
+		button.setVisible(true);
 		b.add(button);
 		b.setVisible(true);
 
 		container.add(b, BorderLayout.SOUTH);
+	
+		//this.setContentPane(container);
 		container.setVisible(true);
-		this.setContentPane(container);
-
 	}
 
 	public static void main(String[] args) {
