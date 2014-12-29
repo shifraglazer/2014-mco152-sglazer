@@ -6,13 +6,10 @@ public class CurrentWeather {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		
-		WeatherFrame frame=new WeatherFrame();
+
+		WeatherFrame frame = new WeatherFrame();
 		frame.setVisible(true);
-		
-		
-		
-		
+
 	}
 
 }

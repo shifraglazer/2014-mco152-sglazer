@@ -55,7 +55,7 @@ public class WeatherFrame extends JFrame {
 
 	public void displayWeather(WeatherNow now) {
 		StringBuilder builder = new StringBuilder();
-	
+
 		Weather[] descr = now.getWeather();
 		// descriptions = new JPanel[descr.length];
 		for (int i = 0; i < descr.length; i++) {

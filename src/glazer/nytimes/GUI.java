@@ -43,6 +43,7 @@ public class GUI extends JFrame {
 
 		for (int i = 0; i < docs.length; i++) {
 			documents[i] = new JPanel();
+			// documents[i].setBorder(new EmptyBorder(10,10,10,10));
 			documents[i]
 					.setLayout(new BoxLayout(documents[i], BoxLayout.Y_AXIS));
 			JLabel headline = new JLabel();
@@ -134,7 +135,6 @@ public class GUI extends JFrame {
 		b.setVisible(true);
 
 		container.add(b, BorderLayout.SOUTH);
-
 		// this.setContentPane(container);
 		container.setVisible(true);
 	}

@@ -6,15 +6,17 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-public class PicDownloadThread extends Thread{
+public class PicDownloadThread extends Thread {
 	private String url;
 	private JLabel label;
-	public PicDownloadThread(String url,JLabel label){
-		this.url=url;
-		this.label=label;
+
+	public PicDownloadThread(String url, JLabel label) {
+		this.url = url;
+		this.label = label;
 	}
+
 	@Override
-	public void run(){
+	public void run() {
 		ImageIcon icon;
 		try {
 			icon = new ImageIcon(new URL(url));
@@ -24,9 +26,9 @@ public class PicDownloadThread extends Thread{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
