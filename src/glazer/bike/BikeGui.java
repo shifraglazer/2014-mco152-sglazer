@@ -1,5 +1,6 @@
 package glazer.bike;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -10,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 public class BikeGui extends JFrame {
 
@@ -21,6 +23,8 @@ public class BikeGui extends JFrame {
 	JPanel listPanel;
 	JList<String> jList;
 	JLabel pic;
+	JPanel titlePanel;
+	JLabel title;
 	public BikeGui(){
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
@@ -39,21 +43,34 @@ public class BikeGui extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		titlePanel=new JPanel();
 		listPanel=new JPanel();
 		panel=new JPanel();
 		panel.add(pic);
 		jList=new JList<String>();
-		//panel.add(jList);
+		title=new JLabel();
+		title.setText("Citibike Locations:");
+		title.setFont(title.getFont().deriveFont(30f));
+	
+		titlePanel.setVisible(true);
+		
+		jList.setOpaque(true);
+		listPanel.setBackground(Color.WHITE);
 		listPanel.add(jList);
 		listPanel.setVisible(true);
 		container.add(panel);
+		container.add(titlePanel);
+		title.setVisible(true);
+		titlePanel.add(title);
 		container.add(listPanel);
+		JScrollPane pane=new JScrollPane(listPanel);
+		container.add(pane);
 		container.setVisible(true);
 	}
 	public void setUp(Bike bike){
 		int length=bike.getStationBeanList().length;
 		StationBeanList[] list=bike.getStationBeanList();
-		String[] labels=new String[length*4];
+		String[] labels=new String[length*5];
 		int count=0;
 		for(int i=0;i<length;i++){
 		labels[count]=list[i].getStationName();
@@ -64,7 +81,8 @@ public class BikeGui extends JFrame {
 		count++;
 		labels[count]="Bikes Avialable: "+list[i].getAvailableBikes();
 		count++;
-		
+		labels[count]="                  ";
+		count++;
 		}
 		jList=new JList<String>(labels);
 		jList.setVisible(true);
