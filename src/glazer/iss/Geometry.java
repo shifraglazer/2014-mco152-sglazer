@@ -1,13 +1,13 @@
 package glazer.iss;
 
 public class Geometry {
-private Location location;
+	private Location location;
 
-public Location getLocation() {
-	return location;
-}
+	public Location getLocation() {
+		return location;
+	}
 
-public void setLocation(Location location) {
-	this.location = location;
-}
+	public void setLocation(Location location) {
+		this.location = location;
+	}
 }

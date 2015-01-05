@@ -35,22 +35,19 @@ public class ISSOverheadFrame extends JFrame {
 		button.setText("Get Times");
 		list = new JList<String>();
 
-
 		panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 
 		panel.add(text);
-	
+
 		ActionListener times = new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String address = text.getText();
-				ISSOverhead overhead = new ISSOverhead();
-				//list = overhead.compute(address,ISSOverheadFrame.this);
-				overhead.compute(address,ISSOverheadFrame.this);
-				//listPanel.add(list);
-			
+				AddressDownloadThread thread = new AddressDownloadThread(
+						ISSOverheadFrame.this, address);
+				thread.start();
 			}
 
 		};
@@ -72,9 +69,6 @@ public class ISSOverheadFrame extends JFrame {
 		// TODO Auto-generated method stub
 		ISSOverheadFrame frame = new ISSOverheadFrame();
 		frame.setVisible(true);
-	}
-	public void setListPanel(String address){
-	
 	}
 
 }
