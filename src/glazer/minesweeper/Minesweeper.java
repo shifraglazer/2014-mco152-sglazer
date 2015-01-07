@@ -140,8 +140,6 @@ public class Minesweeper extends JFrame {
 										flagged.remove(button);
 										button.setSelected(true);
 										button.setBackground(Color.WHITE);
-										button.setForeground(Color.WHITE);
-										button.setVisible(true);
 										findCell(button);
 									} else {
 										button.setIcon(null);
@@ -246,9 +244,7 @@ public class Minesweeper extends JFrame {
 							findCell(test);
 						} else {
 							test.setIcon(null);
-
 							test.setSelected(false);
-							test.setVisible(true);
 							setText(test, neighbors.get(test));
 						}
 					} else if (bombs.contains(test)) {
@@ -269,7 +265,6 @@ public class Minesweeper extends JFrame {
 		for (int i = 0; i < ROWS; i++) {
 			for (int j = 0; j < COLS; j++) {
 				cells[i][j].setEnabled(false);
-				cells[i][j].setVisible(true);
 			}
 		}
 	}
@@ -307,13 +302,11 @@ public class Minesweeper extends JFrame {
 		int r = row.get(button);
 		int c = col.get(button);
 		button.setBackground(Color.WHITE);
-		button.setVisible(true);
 		findWhiteNeighbors(r, c);
 	}
 
 	public void findWhiteNeighbors(int i, int j) {
 		stack.push(cells[i][j]);
-		cells[i][j].setVisible(true);
 		visited.add(cells[i][j]);
 		JToggleButton current;
 		while (!stack.isEmpty()) {
@@ -348,7 +341,6 @@ public class Minesweeper extends JFrame {
 				}
 
 			} while (change);
-			current.setVisible(true);
 			stack.pop();
 		}
 	}
@@ -461,7 +453,6 @@ public class Minesweeper extends JFrame {
 			if (!flagged.contains(button)) {
 				if (neighbors.get(button).equals(0) & !visited.contains(button)) {
 					button.setBackground(Color.WHITE);
-					button.setVisible(true);
 					visited.add(button);
 					stack.push(button);
 					return true;
@@ -483,7 +474,6 @@ public class Minesweeper extends JFrame {
 			if (!flagged.contains(button)) {
 				if (neighbors.get(button).equals(0) & !visited.contains(button)) {
 					button.setBackground(Color.WHITE);
-					button.setVisible(true);
 					visited.add(button);
 					stack.push(button);
 					return true;
@@ -505,7 +495,6 @@ public class Minesweeper extends JFrame {
 			if (!flagged.contains(button)) {
 				if (neighbors.get(button).equals(0) & !visited.contains(button)) {
 					button.setBackground(Color.WHITE);
-					button.setVisible(true);
 					visited.add(button);
 					stack.push(button);
 					return true;
