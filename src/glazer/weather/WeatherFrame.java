@@ -111,6 +111,7 @@ public class WeatherFrame extends JFrame {
 		WeatherNow now = gson.fromJson(json.toString(), WeatherNow.class);
 		WeatherFrame frame = new WeatherFrame();
 		frame.setVisible(true);
+		now.getClass();
 
 	}
 }
