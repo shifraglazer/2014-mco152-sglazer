@@ -92,6 +92,7 @@ public class WeatherFrame extends JFrame {
 
 	}
 
+
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		URL url = new URL(
